@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票demo</title>
+    <script>
+        function getVote(int) {
+            if(window.XMLHttpRequest){
+                var xmlhttp = new XMLHttpRequest();
+            }else{
+                var xmlhttp = new ActiveXObject();
+            }
+
+            xmlhttp.onreadystatechange = function() {
+                if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                {
+                    document.getElementById("poll").innerHTML = xmlhttp.responseText;
+                }
+            }
+
+            xmlhttp.open("GET", "poll_vote.php?vote =" + int, true);
+            console.log(int);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <div id="poll">
+        <h3>你喜欢 BOB还是 jack ?</h3>
+        <form>
+            是：<input type="radio" name="vote" value="0" onclick="getVote(this.value)">
+            <br>
+            否：
+            <input type="radio" name="vote" value="1" onclick="getVote(this.value)">
+        </form>
+    </div>
+</body>
+</html>
