@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,11 +8,19 @@
 </head>
 <body>
 	<?php 
-		if(isset($_GET["index"])){
-			include($_GET['index'] . ".inc.php");
-		}else{
-			include("start.inc.php");	
+		function __autoload($_className) {
+			require $_className . '.class.php';
 		}
+
+		//实例化主类
+		if(isset($_GET['index'])){
+			$_main = new Main($_GET['index']);
+		}else{
+			$_main = new Main();
+		}
+		
+		//运行
+		$_main->_run();
 	 ?>
 </body>
 </html>
